@@ -2,7 +2,6 @@ let currentPlayer = 'X';
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         let streamActive = false;
-
         
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })
             .then(function(stream) {
