@@ -1,0 +1,540 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div align=center class="mainDiv">
+      <div align=center class="headerCont">
+        <h1>Codrex AI</h1>
+      </div>
+      <div>
+           <table>
+  
+               <td id="1"></td>
+               <td id="2"></td>
+               <td id="3"></td>
+             
+             <tr>
+               <td id="4"></td>
+               <td id="5"></td>
+               <td id="6"></td>
+             </tr>
+             <tr>
+               <td id="7"></td>
+               <td id="8"></td>
+               <td id="9"></td>
+             </tr>
+           </table>
+      </div>
+      <div><h3 id="turnMessage">Your turn</h3><br>
+      <button onclick="rst()">restart</button>
+      </div>
+      <div id="notif" align=center class="notif">
+        <h1>🎊 You Won 🎊</h1>
+        <button onclick="reset()">Restart</button>
+      </div>
+    </div>
+
+    <script src="">
+      const btn1 = document.getElementById("1");
+const btn2 = document.getElementById("2");
+const btn3 = document.getElementById("3");
+const btn4 = document.getElementById("4");
+const btn5 = document.getElementById("5");
+const btn6 = document.getElementById("6");
+const btn7 = document.getElementById("7");
+const btn8 = document.getElementById("8");
+const btn9 = document.getElementById("9");
+
+function rst(){
+  location.reload();
+}
+
+var box1 = 0;
+var box2 = 0;
+var box3 = 0;
+var box4 = 0;
+var box5 = 0;
+var box6 = 0;
+var box7 = 0;
+var box8 = 0;
+var box9 = 0;
+
+var b1Color = 0;
+var b2Color = 0;
+var b3Color = 0;
+var b4Color = 0;
+var b5Color = 0;
+var b6Color = 0;
+var b7Color = 0;
+var b8Color = 0;
+var b9Color = 0;
+
+const msg = document.getElementById("turnMessage");
+msg.innerHTML="Your Turn";
+
+// Smart AI Decision Function
+function getSmartMove() {
+  const winningLines = [
+    [1, 2, 3], [4, 5, 6], [7, 8, 9], // Rows
+    [1, 4, 7], [2, 5, 8], [3, 6, 9], // Columns
+    [1, 5, 9], [3, 5, 7]             // Diagonals
+  ];
+
+  const getColor = (num) => window[`b${num}Color`];
+  const getBox = (num) => window[`box${num}`];
+
+  // 1. Can AI (2) win right now?
+  for (let [a, b, c] of winningLines) {
+    if (getColor(a) === 2 && getColor(b) === 2 && getBox(c) === 0) return c;
+    if (getColor(a) === 2 && getColor(c) === 2 && getBox(b) === 0) return b;
+    if (getColor(b) === 2 && getColor(c) === 2 && getBox(a) === 0) return a;
+  }
+
+  // 2. Is player (1) about to win? Block them!
+  for (let [a, b, c] of winningLines) {
+    if (getColor(a) === 1 && getColor(b) === 1 && getBox(c) === 0) return c;
+    if (getColor(a) === 1 && getColor(c) === 1 && getBox(b) === 0) return b;
+    if (getColor(b) === 1 && getColor(c) === 1 && getBox(a) === 0) return a;
+  }
+
+  // 3. Take center spot if open
+  if (getBox(5) === 0) return 5;
+
+  // 4. Otherwise, pick a random available spot
+  let openBoxes = [];
+  for (let i = 1; i <= 9; i++) {
+    if (getBox(i) === 0) openBoxes.push(i);
+  }
+  
+  if (openBoxes.length > 0) {
+    return openBoxes[Math.floor(Math.random() * openBoxes.length)];
+  }
+
+  return null; // Board is full
+}
+
+btn1.onclick=function(){
+  b1Color = 1;
+  box1 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn1.style.backgroundColor="green";
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn2.onclick=function(){
+  b2Color = 1;
+  box2 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn2.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn3.onclick=function(){
+  b3Color = 1;
+  box3 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn3.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn4.onclick=function(){
+  b4Color = 1;
+  box4 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn4.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn5.onclick=function(){
+  b5Color = 1;
+  box5 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn5.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn6.onclick=function(){
+  b6Color = 1;
+  box6 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn6.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn7.onclick=function(){
+  b7Color = 1;
+  box7 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn7.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn8.onclick=function(){
+  b8Color = 1;
+  box8 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn8.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+btn9.onclick=function(){
+  b9Color = 1;
+  box9 = 1;
+  msg.innerHTML="Wait for your turn";
+  btn9.style.backgroundColor="green";
+
+  if((b1Color===1&&b2Color===1&&b3Color===1) || (b1Color===1&&b4Color===1&&b7Color===1) || (b1Color===1&&b5Color===1&&b9Color===1) || (b3Color===1&&b5Color===1&&b7Color===1) || (b4Color===1&&b5Color===1&&b6Color===1) || (b7Color===1&&b8Color===1&&b9Color===1) || (b2Color===1&&b5Color===1&&b8Color===1) || (b3Color===1&&b6Color===1&&b9Color===1)){
+    document.getElementById("notif").style.display="block";
+  }
+  
+  setTimeout(function(){ msg.innerHTML="Wait for your turn ."; },1000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . ."; },2000);
+  setTimeout(function(){ msg.innerHTML="Wait for your turn . . ."; },3000);
+
+  setTimeout(function(){
+    const ai = getSmartMove();
+
+    if (ai === 1) { btn1.style.backgroundColor="red"; box1=1; b1Color=2; }
+    else if (ai === 2) { btn2.style.backgroundColor="red"; box2=1; b2Color=2; }
+    else if (ai === 3) { btn3.style.backgroundColor="red"; box3=1; b3Color=2; }
+    else if (ai === 4) { btn4.style.backgroundColor="red"; box4=1; b4Color=2; }
+    else if (ai === 5) { btn5.style.backgroundColor="red"; box5=1; b5Color=2; }
+    else if (ai === 6) { btn6.style.backgroundColor="red"; box6=1; b6Color=2; }
+    else if (ai === 7) { btn7.style.backgroundColor="red"; box7=1; b7Color=2; }
+    else if (ai === 8) { btn8.style.backgroundColor="red"; box8=1; b8Color=2; }
+    else if (ai === 9) { btn9.style.backgroundColor="red"; box9=1; b9Color=2; }
+
+    if((b1Color===2&&b2Color===2&&b3Color===2) || (b1Color===2&&b4Color===2&&b7Color===2) || (b1Color===2&&b5Color===2&&b9Color===2) || (b3Color===2&&b5Color===2&&b7Color===2) || (b4Color===2&&b5Color===2&&b6Color===2) || (b7Color===2&&b8Color===2&&b9Color===2) || (b2Color===2&&b5Color===2&&b8Color===2) || (b3Color===2&&b6Color===2&&b9Color===2)){
+      document.getElementById("notif").innerHTML="CodRex Win🖕🤖🖕";
+      document.getElementById("notif").style.display="block";
+    }
+
+    msg.innerHTML="Your Turn";
+
+    if(document.getElementById("notif").style.display==="block"){
+      msg.innerHTML="COMPLETED";
+    }
+  }, 4000);
+}
+
+function reset(){
+  location.reload();
+}
+
+    </script>
+
+<style>
+    *{margin: auto;
+font-family: sans-serif;
+ }
+body{
+background-color: black;
+}
+table{
+border: 1px solid white;
+height: 300px; width: 300px; margin-top:50px;
+}
+.headerCont{
+background-color: rgb(79, 236, 247, 40); padding-block: 4vh; 
+border-radius: 15px;
+}
+
+td{
+font-size:;
+border: 1px solid white;
+padding: 60px;
+align-content: center;
+text-align: center;
+overflow: hidden; white-space: nowrap;
+}
+h3{
+color: white; margin-top: 65px;
+}
+  
+h2{
+opacity: 100%;
+}
+
+.notif{
+background-color: gray;
+opacity: 100%;
+margin: 0;
+border-radius: 10px; padding-block: 155px; width: 382px;
+position: relative;
+bottom:465px;
+animation: notif 500ms 1;
+display: none; font-size: 10px;
+}
+button{
+margin-top: 20px; height: : 30px;
+padding-inline: 50px;
+}
+@keyframes notif{
+  from{opacity: 0%}
+  to{opacity: 100%}
+}
+
+
+
+
+</style>
+  </body>
+</html>
