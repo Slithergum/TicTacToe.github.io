@@ -11,6 +11,7 @@
         <h1>Codrex AI</h1>
       </div>
       <br>
+        <br>
         <a href="index.html">Go back to 2 Player mode</a>
       <div>
            <table>
@@ -39,6 +40,66 @@
         <button onclick="reset()">Restart</button>
       </div>
     </div>
+    
+    <style>
+       *{margin: auto;
+font-family: sans-serif;
+ }
+body{
+background-color: black;
+}
+table{
+border: 1px solid white;
+height: 300px; width: 300px; margin-top:50px;
+}
+.headerCont{
+background-color: rgb(79, 236, 247, 40); padding-block: 4vh; 
+border-radius: 15px;
+}
+
+td{
+font-size:;
+border: 1px solid white;
+padding: 60px;
+align-content: center;
+text-align: center;
+overflow: hidden; white-space: nowrap;
+}
+h3{
+color: white; margin-top: 65px;
+}
+  
+h2{
+opacity: 100%;
+}
+
+.notif{
+background-color: gray;
+opacity: 100%;
+margin: 0;
+border-radius: 10px; padding-block: 155px; width: 382px;
+position: relative;
+bottom:465px;
+animation: notif 500ms 1;
+display: none; font-size: 10px;
+}
+button{
+margin-top: 20px; height: : 30px;
+padding-inline: 50px;
+}
+@keyframes notif{
+  from{opacity: 0%}
+  to{opacity: 100%}
+}
+a{
+  color: white;
+  padding-block: 10px;
+  padding-inline: 10px;
+  background-color: gray;
+  border-radius: 20px;
+  text-decoration: none;
+}
+    </style>
 
     <script>
       const btn1 = document.getElementById("1");
@@ -482,70 +543,5 @@ function reset(){
 }
 
     </script>
-
-<style>
-    *{margin: auto;
-font-family: sans-serif;
- }
-body{
-background-color: black;
-}
-table{
-border: 1px solid white;
-height: 300px; width: 300px; margin-top:50px;
-}
-.headerCont{
-color: white;
-padding-block: 4vh; 
-border-radius: 15px;
-}
-a{
-text-decoration:none;
-background-color:gray;
-padding-block:10px;
-padding-inline:10px;
-border-radius:20px;
-  
-}
-
-td{
-font-size:;
-border: 1px solid white;
-padding: 60px;
-align-content: center;
-text-align: center;
-overflow: hidden; white-space: nowrap;
-}
-h3{
-color: white; margin-top: 65px;
-}
-  
-h2{
-opacity: 100%;
-}
-
-.notif{
-background-color: gray;
-opacity: 100%;
-margin: 0;
-border-radius: 10px; padding-block: 155px; width: 382px;
-position: relative;
-bottom:465px;
-animation: notif 500ms 1;
-display: none; font-size: 10px;
-}
-button{
-margin-top: 20px; height: : 30px;
-padding-inline: 50px;
-}
-@keyframes notif{
-  from{opacity: 0%}
-  to{opacity: 100%}
-}
-
-
-
-
-</style>
   </body>
 </html>
