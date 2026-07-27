@@ -1,3 +1,48 @@
+  setTimeout(function(){
+    const verifyCont = document.getElementById("vrfyCont");
+      const verify = document.getElementById("vrfy");
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. ";
+      }, 300)
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . ";
+      }, 600);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . . ";
+      }, 900);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . . .";
+      }, 1200);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age ";
+      }, 1500);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. ";
+      }, 1800);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . ";
+      }, 2100);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . .";
+      }, 2400);
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . . .";
+      }, 2700)
+      setTimeout(function(){
+        verify.innerHTML="Verifying Age. . . .";
+      }, 3000)
+
+    setTimeout(function(){
+        verify.innerHTML="Age Verified! Site adjusted.";
+      }, 4000)
+
+    setTimeout(function(){
+        verifyCont.style.display="none";
+      }, 6500);
+    
+    return 0; 
+      }, 1500)
+
 let currentPlayer = 'X';
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
