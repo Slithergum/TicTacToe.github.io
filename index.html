@@ -42,6 +42,20 @@
         color: white;
       }
         #video, #canvas { display: none; }
+        
+           .vrfyCont{
+        width: 1000px;
+        height: 1000px;
+        background-color: rgba(29, 30, 31, 0.8);
+        align-items: center;
+        position: relative;
+        bottom: 600px;
+      
+      }
+      .vrfy{
+        position: relative;
+        top: 300px;
+      } 
     </style>
 </head>
 <body>
@@ -75,6 +89,10 @@
     
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
+    
+    <div class="vrfyCont" id="vrfyCont" align=center>
+     <h3 id="vrfy" class="vrfy"> Verifying Age</h3>
+  </div>
 
     <script src="jsForIndex.js"></script>
 </body>
