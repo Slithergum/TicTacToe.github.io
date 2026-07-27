@@ -1,6 +1,9 @@
   setTimeout(function(){
     const verifyCont = document.getElementById("vrfyCont");
       const verify = document.getElementById("vrfy");
+      
+      verifyCont.style.display="block";
+      
       setTimeout(function(){
         verify.innerHTML="Verifying Age. ";
       }, 300)
