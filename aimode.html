@@ -139,7 +139,7 @@ var b9Color = 0;
 const msg = document.getElementById("turnMessage");
 msg.innerHTML="Your Turn";
 
-// Smart AI Decision Function
+
 function getSmartMove() {
   const winningLines = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9], // Rows
@@ -157,18 +157,17 @@ function getSmartMove() {
     if (getColor(b) === 2 && getColor(c) === 2 && getBox(a) === 0) return a;
   }
 
-  // 2. Is player (1) about to win? Block them!
+
   for (let [a, b, c] of winningLines) {
     if (getColor(a) === 1 && getColor(b) === 1 && getBox(c) === 0) return c;
     if (getColor(a) === 1 && getColor(c) === 1 && getBox(b) === 0) return b;
     if (getColor(b) === 1 && getColor(c) === 1 && getBox(a) === 0) return a;
   }
 
-  // 3. Take center spot if open
+  
   if (getBox(5) === 0) return 5;
 
-  // 4. Otherwise, pick a random available spot
-  let openBoxes = [];
+ let openBoxes = [];
   for (let i = 1; i <= 9; i++) {
     if (getBox(i) === 0) openBoxes.push(i);
   }
@@ -177,7 +176,7 @@ function getSmartMove() {
     return openBoxes[Math.floor(Math.random() * openBoxes.length)];
   }
 
-  return null; // Board is full
+  return null; 
 }
 
 btn1.onclick=function(){
