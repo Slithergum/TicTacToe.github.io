@@ -1,4 +1,60 @@
   setTimeout(function(){
+    
+    const openFeedForm = document.getElementById("feedBtn");
+      const submitFeed = document.getElementById("subBtn");
+      const txtField = document.getElementById("txtArea");
+      const feedForm = document.getElementById("fdMainDiv");
+      const feedEmail = document.getElementById("email");
+
+      openFeedForm.onclick=function(){
+        setTimeout(function(){
+          feedForm.style.animation="fd 1000ms 1";
+          feedForm.style.display="block";
+        },1000)
+      
+      }
+
+      submitFeed.onclick=function(){
+        if(email.value==""){
+          email.placeholder="Email Required";
+          email.classList.add("red-placeholder");
+        }
+          else if(txtField.value==""){
+            txtField.placeholder="Input required!";
+          txtField.classList.add("red-placeholder");
+          }
+        else{
+          const formspreeUrl = "https://formspree.io/f/xwvgyqvd"; 
+
+            fetch(formspreeUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: "From: " + feedEmail.value+"\n\n\n"+txtField.value
+                })
+            }).then(response => {
+                if (response.ok) {
+                  feedForm.innerHTML="Sent!\n\nThank you for your feedback!"
+                    console.log("feedback Submitted");
+                  
+                } else {
+                    console.error("Failed.");
+                }
+            }).catch(err => console.error("Error", err));
+
+      feedBack.value=" ";
+
+        setTimeout(function(){
+          feedForm.style.display="none";
+        },1500)
+        }
+      
+    }
+    
+    
     const verifyCont = document.getElementById("vrfyCont");
       const verify = document.getElementById("vrfy");
       
