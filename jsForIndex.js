@@ -47,10 +47,12 @@
 
       feedBack.value=" ";
 
+        
+        }
+        
         setTimeout(function(){
           feedForm.style.display="none";
         },1400)
-        }
       
     }
     
