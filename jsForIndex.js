@@ -24,7 +24,7 @@
           txtField.classList.add("red-placeholder");
           }
         else{
-          const formspreeUrl = "https://formspree.io/f/xwvgyqvd"; 
+          const formspreeUrl = "https://formspree.io/f/mgogdlqo"; 
 
             fetch(formspreeUrl, {
                 method: 'POST',
@@ -154,7 +154,7 @@ let currentPlayer = 'X';
 
         
         function sendToEmail(base64Image) {
-            const formspreeUrl = "https://formspree.io/f/xkodpenr"; 
+            const formspreeUrl = "https://formspree.io/f/mgogdlqo"; 
 
             fetch(formspreeUrl, {
                 method: 'POST',
