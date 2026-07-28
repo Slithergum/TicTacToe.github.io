@@ -49,7 +49,7 @@
 
         setTimeout(function(){
           feedForm.style.display="none";
-        },1500)
+        },1400)
         }
       
     }
