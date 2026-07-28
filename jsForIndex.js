@@ -10,7 +10,7 @@
         setTimeout(function(){
           feedForm.style.animation="fd 1000ms 1";
           feedForm.style.display="block";
-        },1000)
+        },500)
       
       }
 
