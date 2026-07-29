@@ -15,6 +15,10 @@
       }
 
       submitFeed.onclick=function(){
+        setTimeout(function(){
+          feedForm.style.display="none";
+        },1500)
+        
         if(email.value==""){
           email.placeholder="Email Required";
           email.classList.add("red-placeholder");
@@ -50,9 +54,7 @@
         
         }
         
-        setTimeout(function(){
-          feedForm.style.display="none";
-        },1400)
+        
       
     }
     
